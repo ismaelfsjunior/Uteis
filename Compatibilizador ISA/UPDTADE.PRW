@@ -3,7 +3,7 @@
 #INCLUDE "TBICONN.CH"
 #INCLUDE 'TOPCONN.CH' 
 user Function xupdat()   
-    PREPARE ENVIRONMENT EMPRESA '99' FILIAL '01' MODULO "EST" USER "admin" PASSWORD "siga181"
+    PREPARE ENVIRONMENT EMPRESA '01' FILIAL '01' MODULO "EST" USER "admin" PASSWORD "siga7777"
     FSAtuSX3()
 return nil
 
@@ -114,7 +114,8 @@ Return NIL
 
 Static Function xsequen(cAlias) 
     Local cValor := ""
-    cQuery := "SELECT top 1 X3_ORDEM,X3_ARQUIVO FROM SX3990 WHERE X3_ARQUIVO = '"+cAlias+"' ORDER BY X3_ORDEM DESC "
+    //cQuery := "SELECT top 1 X3_ORDEM,X3_ARQUIVO FROM SX3010 WHERE X3_ARQUIVO = '"+cAlias+"' ORDER BY X3_ORDEM DESC "
+    cQuery := "SELECT * FROM ( SELECT X3_ORDEM, X3_ARQUIVO FROM SX3010 WHERE X3_ARQUIVO = '" + cAlias + "' ORDER BY X3_ORDEM DESC ) WHERE ROWNUM = 1 "
     if select("SX3UPD") > 0
         SX3UPD->(DbCloseArea())
     endif    
