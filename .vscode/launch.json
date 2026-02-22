@@ -13,7 +13,17 @@
 	"lastPrograms": [
 		{
 			"label": "u_xupdat"
+		},
+		{
+			"label": "u_comcf01"
+		},
+		{
+			"label": "u_rmata116"
+		},
+		{
+			"label": "u_RPCP001"
 		}
 	],
-	"lastProgramExecuted": "u_xupdat"
+	"lastProgramExecuted": "u_RPCP001",
+	"lastProgramArguments": []
 }
