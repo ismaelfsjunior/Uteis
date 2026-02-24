@@ -135,163 +135,226 @@ _cSql += "ORDER BY GRUPO "
 //memowrite(funname()+".sql",_cSql)
 TCQuery _cSql new Alias (_cAlias:=GetNextAlias()) */
 
-oPrinter:SetLandscape() //SetPortrait() 
+oPrinter:SetPortrait() //SetLandscape()
 oPrinter:SetResolution(72)
 oPrinter:SetPaperSize(DMPAPER_A4)
 oPrinter:SetMargin(40,40,40,40) // nEsquerda, nSuperior, nDireita, nInferior
 oPrinter:StartPage()
 
 
-//oPrinter:Box(0015,0010,0830,0585)    // Moldura do Relatório
+//oPrinter:Box(0005,0005,0830,0585)    // Moldura do Relatório
 cFileLogo	:= cStartPath + 'LGRL.BMP' 
-oPrinter:Say(0045,0250,"RELATÓRIO BALANÇO DE MASSA",oFont24n)
+oPrinter:Say(0045,0155,"RELATÓRIO BALANÇO DE MASSA",oFont24n)
 
 
-oPrinter:Box(0060,0025,0425,0390)  // QUADRO PLAINA (L1, C1, L2, C2)
-oPrinter:Fillrect( {0060,0025,0085,0390}, oBrushBlue, "-2")
-oPrinter:Line(0085,0025,0085,0390) // Linha orizontal plaina e balanço de madeira
-oPrinter:Line(0060,0220,0085,0220) // Linha Vertical plaina e balanço de madeira
-oPrinter:Say(0075,0100,"PLAINA",oFont14,,CLR_WHITE,) 
-oPrinter:Say(0075,0235,"BALANÇO DE MADEIRA",oFont14,,CLR_WHITE,) 
+oPrinter:Box(0060,0005,0425,0280)  // QUADRO PLAINA (L1, C1, L2, C2)
+oPrinter:Fillrect( {0060,0005,0085,0280}, oBrushBlue, "-2")
+oPrinter:Line(0085,0005,0085,0280) // Linha orizontal plaina e balanço de madeira
+oPrinter:Line(0060,0155,0085,0155) // Linha Vertical plaina e balanço de madeira
+oPrinter:Say(0075,0050,"PLAINA",oFont11,,CLR_WHITE,) 
+oPrinter:Say(0075,0160,"BALANÇO DE MADEIRA",oFont11,,CLR_WHITE,) 
 
-oPrinter:Fillrect( {085,0025,0105,0390}, oBrush1, "-2")
-oPrinter:Line(0105,0026,0105,0389) // Linha orizontal Entradas
-oPrinter:Say(0098,0190,"ENTRADAS",oFont14,,,) 
+oPrinter:Fillrect( {085,0005,0105,0280}, oBrush1, "-2")
+oPrinter:Line(0105,0006,0105,0280) // Linha orizontal Entradas
+oPrinter:Say(0098,120,"ENTRADAS",oFont11,,,) 
 
-oPrinter:Say(0120,0030,"SALDO INICIAL",oFont14,,,) 
-oPrinter:Say(0120,0250,"0,00",oFont14,,,) 
-oPrinter:Line(0125,0025,0125,0390) // Linha orizontal SALDO INICIAL
-oPrinter:Line(0105,0220,0145,0220) // Linha Vertical entrada
+oPrinter:Say(0120,0010,"SALDO INICIAL",oFont11,,,) 
+oPrinter:Say(0120,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0125,0005,0125,0280) // Linha orizontal SALDO INICIAL
+oPrinter:Line(0105,0155,0145,0155) // Linha Vertical entrada
 
-oPrinter:Say(0140,0030,"RECEBIMENTO",oFont14,,,) 
-oPrinter:Say(0140,0250,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0145,0025,0165,0390}, oBrushCian, "-2")
-oPrinter:Line(0145,0025,0145,0390) // Linha orizontal RECEBIMENTO
+oPrinter:Say(0140,0010,"RECEBIMENTO",oFont11,,,) 
+oPrinter:Say(0140,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0145,0005,0165,0280}, oBrushCian, "-2")
+oPrinter:Line(0145,0005,0145,0280) // Linha orizontal RECEBIMENTO
 
-oPrinter:Say(0160,0030,"TOTAL",oFont14,,,) 
-oPrinter:Say(0160,0250,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0165,0025,0185,0390}, oBrush1, "-2")
-oPrinter:Line(0165,0025,0165,0390) // Linha orizontal TOTAL
+oPrinter:Say(0160,0010,"TOTAL",oFont11,,,) 
+oPrinter:Say(0160,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0165,0005,0185,0280}, oBrush1, "-2")
+oPrinter:Line(0165,0005,0165,0280) // Linha orizontal TOTAL
 
-oPrinter:Say(0180,0190,"SAIDAS",oFont14,,,) 
-oPrinter:Line(0185,0025,0185,0390) // Linha orizontal SAIDAS
-oPrinter:Line(0185,0220,0425,0220) // Linha Vertical entrada
+oPrinter:Say(0180,120,"SAIDAS",oFont11,,,) 
+oPrinter:Line(0185,0005,0185,0280) // Linha orizontal SAIDAS
+oPrinter:Line(0185,0155,0425,0155) // Linha Vertical entrada
 
-oPrinter:Say(0200,0030,"PRODUÇÃO",oFont14,,,) 
-oPrinter:Say(0200,0250,"0,00",oFont14,,,) 
-oPrinter:Line(0205,0025,0205,0390) // Linha orizontal PRODUÇÃO
+oPrinter:Say(0200,0010,"PRODUÇÃO",oFont11,,,) 
+oPrinter:Say(0200,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0205,0005,0205,0280) // Linha orizontal PRODUÇÃO
 
-oPrinter:Say(0220,0030,"PERDAS",oFont14,,,) 
-oPrinter:Say(0220,0250,"0,00",oFont14,,,) 
-oPrinter:Line(0225,0025,0225,0390) // Linha orizontal PERDAS
+oPrinter:Say(0220,0010,"PERDAS",oFont11,,,) 
+oPrinter:Say(0220,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0225,0005,0225,0280) // Linha orizontal PERDAS
 
-oPrinter:Say(0240,0030,"DEVOLIÇÃO (NÃO CONFORMIDADE)",oFont14,,,) 
-oPrinter:Say(0240,0250,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0245,0025,0265,0390}, oBrushCian, "-2")
-oPrinter:Line(0245,0025,0245,0390) // Linha orizontal DEVOLIÇÃO
+oPrinter:Say(0240,0010,"DEVOLIÇÃO (NÃO CONFORMIDADE)",oFont11,,,) 
+oPrinter:Say(0240,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0245,0005,0265,0280}, oBrushCian, "-2")
+oPrinter:Line(0245,0005,0245,0280) // Linha orizontal DEVOLIÇÃO
 
-oPrinter:Say(0260,0030,"TOTAL",oFont14,,,) 
-oPrinter:Say(0260,0250,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0265,0025,0285,0390}, oBrush1, "-2")
-oPrinter:Line(0265,0025,0265,0390) // Linha orizontal TOTAL
+oPrinter:Say(0260,0010,"TOTAL",oFont11,,,) 
+oPrinter:Say(0260,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0265,0005,0285,0280}, oBrush1, "-2")
+oPrinter:Line(0265,0005,0265,0280) // Linha orizontal TOTAL
 
-oPrinter:Say(0280,0190,"BALANÇO",oFont14,,,) 
-oPrinter:Line(0285,0025,0285,0390) // Linha orizontal BALANÇO
+oPrinter:Say(0280,120,"BALANÇO",oFont11,,,) 
+oPrinter:Line(0285,0005,0285,0280) // Linha orizontal BALANÇO
 
-oPrinter:Say(0300,0030,"SALDO FINAL",oFont14,,,) 
-oPrinter:Say(0300,0250,"0,00",oFont14,,,) 
-oPrinter:Line(0305,0025,0305,0390) // Linha orizontal SALDO FINAL
+oPrinter:Say(0300,0010,"SALDO FINAL",oFont11,,,) 
+oPrinter:Say(0300,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0305,0005,0305,0280) // Linha orizontal SALDO FINAL
 
-oPrinter:Say(0320,0030,"INVENTÁRIO",oFont14,,,) 
-oPrinter:Say(0320,0250,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0325,0025,0345,0390}, oBrushCian, "-2")
-oPrinter:Line(0325,0025,0325,0390) // Linha orizontal INVENTÁRIO
+oPrinter:Say(0320,0010,"INVENTÁRIO",oFont11,,,) 
+oPrinter:Say(0320,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0325,0005,0345,0280}, oBrushCian, "-2")
+oPrinter:Line(0325,0005,0325,0280) // Linha orizontal INVENTÁRIO
 
-oPrinter:Say(0340,0030,"DIFERENÇA DE SALDOS",oFont14,,,) 
-oPrinter:Say(0340,0250,"0,00",oFont14,,,) 
-oPrinter:Line(0345,0025,0345,0390) // Linha orizontal INVENTÁRIO
+oPrinter:Say(0340,0010,"DIFERENÇA DE SALDOS",oFont11,,,) 
+oPrinter:Say(0340,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0345,0005,0345,0280) // Linha orizontal INVENTÁRIO
 
-oPrinter:Box(0060,0405,0425,0785) // QUADRO CORTE ****************************************
+oPrinter:Box(0060,0285,0425,0575) // QUADRO CORTE ****************************************
 
-oPrinter:Fillrect( {0060,0405,0085,0785}, oBrushBlue, "-2")
-oPrinter:Line(0085,0405,0085,0785) // Linha orizontal plaina e balanço de madeira
-oPrinter:Line(0060,0600,0085,0600) // Linha Vertical plaina e balanço de madeira
-oPrinter:Say(0075,0455,"CORTE",oFont14,,CLR_WHITE,) 
-oPrinter:Say(0075,0615,"BALANÇO DE TABUAS",oFont14,,CLR_WHITE,) 
+oPrinter:Fillrect( {0060,0285,0085,0575}, oBrushBlue, "-2")
+oPrinter:Line(0085,0285,0085,0575) // Linha orizontal corte e balanço de madeira
+oPrinter:Line(0060,0430,0085,0430) // Linha Vertical cortee balanço de madeira
+oPrinter:Say(0075,0320,"CORTE",oFont11,,CLR_WHITE,) 
+oPrinter:Say(0075,0465,"BALANÇO DE TABUAS",oFont11,,CLR_WHITE,) 
 
-oPrinter:Fillrect( {085,0405,0105,0785}, oBrush1, "-2")
-oPrinter:Line(0105,0405,0105,0785) // Linha orizontal Entradas
-oPrinter:Say(0098,0580,"ENTRADAS",oFont14,,,) 
+oPrinter:Fillrect( {085,0285,0105,0575}, oBrush1, "-2")
+oPrinter:Line(0105,0285,0105,0575) // Linha orizontal Entradas
+oPrinter:Say(0098,0410,"ENTRADAS",oFont11,,,) 
 
-oPrinter:Say(0120,0410,"SALDO INICIAL",oFont14,,,) 
-oPrinter:Say(0120,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0125,0405,0125,0785) // Linha orizontal SALDO INICIAL
-oPrinter:Line(0105,0600,0145,0600) // Linha Vertical entrada
+oPrinter:Say(0120,0290,"SALDO INICIAL",oFont11,,,) 
+oPrinter:Say(0120,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0125,0285,0125,0575) // Linha orizontal SALDO INICIAL
+oPrinter:Line(0105,0430,0145,0430) // Linha Vertical entrada
 
-oPrinter:Say(0140,0410,"RECEBIMENTO DA PLAINA",oFont14,,,) 
-oPrinter:Say(0140,0630,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0145,0405,0165,0785}, oBrushCian, "-2")
-oPrinter:Line(0145,0405,0145,0785) // Linha orizontal RECEBIMENTO
+oPrinter:Say(0140,0290,"RECEBIMENTO DA PLAINA",oFont11,,,) 
+oPrinter:Say(0140,0445,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0145,0285,0165,0575}, oBrushCian, "-2")
+oPrinter:Line(0145,0285,0145,0575) // Linha orizontal RECEBIMENTO
 
-oPrinter:Say(0160,0410,"TOTAL",oFont14,,,) 
-oPrinter:Say(0160,0630,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0165,0405,0185,0785}, oBrush1, "-2")
-oPrinter:Line(0165,0405,0165,0785) // Linha orizontal TOTAL
+oPrinter:Say(0160,0290,"TOTAL",oFont11,,,) 
+oPrinter:Say(0160,0445,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0165,0285,0185,0575}, oBrush1, "-2")
+oPrinter:Line(0165,0285,0165,0575) // Linha orizontal TOTAL
 
-oPrinter:Say(0180,0580,"SAIDAS",oFont14,,,) 
-oPrinter:Line(0185,0405,0185,0785) // Linha orizontal SAIDAS
-oPrinter:Line(0185,0600,0425,0600) // Linha Vertical entrada
+oPrinter:Say(0180,0410,"SAIDAS",oFont11,,,) 
+oPrinter:Line(0185,0285,0185,0575) // Linha orizontal SAIDAS
+oPrinter:Line(0185,0430,0425,0430) // Linha Vertical entrada
 
-oPrinter:Say(0200,0410,"PRODUÇÃO - RIPAS DE FALNGES",oFont14,,,) 
-oPrinter:Say(0200,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0205,0405,0205,0785) // Linha orizontal - RIPAS DE FALNGES
+oPrinter:Say(0200,0290,"RIPAS DE FALNGES",oFont11,,,) 
+oPrinter:Say(0200,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0205,0285,0205,0575) // Linha orizontal - RIPAS DE FALNGES
 
-oPrinter:Say(0220,0410,"PRODUÇÃO - RIPAS DE NÚCLEOS",oFont14,,,) 
-oPrinter:Say(0220,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0225,0405,0225,0785) // Linha orizontal - RIPAS DE FALNGES
+oPrinter:Say(0220,0290,"RIPAS DE NÚCLEOS",oFont11,,,) 
+oPrinter:Say(0220,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0225,0285,0225,0575) // Linha orizontal - RIPAS DE FALNGES
 
-oPrinter:Say(0240,0410,"PRODUÇÃO - RIPAS DE FECHAMENTO",oFont14,,,) 
-oPrinter:Say(0240,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0245,0405,0245,0785) // Linha orizontal - RIPAS DE FALNGES
+oPrinter:Say(0240,0290,"RIPAS DE FECHAMENTO",oFont11,,,) 
+oPrinter:Say(0240,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0245,0285,0245,0575) // Linha orizontal - RIPAS DE FALNGES
 
-oPrinter:Say(0260,0410,"PRODUÇÃO - RIPAS DE REF. LATERAL",oFont14,,,) 
-oPrinter:Say(0260,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0265,0405,0265,0785) // Linha orizontal - RIPAS DE FALNGES
+oPrinter:Say(0260,0290,"RIPAS DE REF. LATERAL",oFont11,,,) 
+oPrinter:Say(0260,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0265,0285,0265,0575) // Linha orizontal - RIPAS DE FALNGES
 
-oPrinter:Say(0280,0410,"PRODUÇÃO - RIPAS DE REF. CENTRAL",oFont14,,,) 
-oPrinter:Say(0280,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0285,0405,0285,0785) // Linha orizontal - RIPAS DE FALNGES
+oPrinter:Say(0280,0290,"RIPAS DE REF. CENTRAL",oFont11,,,) 
+oPrinter:Say(0280,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0285,0285,0285,0575) // Linha orizontal - RIPAS DE FALNGES
 
-oPrinter:Say(0300,0410,"PERDAS",oFont14,,,) 
-oPrinter:Say(0300,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0305,0405,0305,0785) // Linha orizontal - RIPAS DE FALNGES
+oPrinter:Say(0300,0290,"PERDAS",oFont11,,,) 
+oPrinter:Say(0300,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0305,0285,0305,0575) // Linha orizontal - RIPAS DE FALNGES
 
-oPrinter:Say(0320,0410,"DEVOLIÇÃO (NÃO CONFORMIDADE)",oFont14,,,) 
-oPrinter:Say(0320,0630,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0325,0405,0345,0785}, oBrushCian, "-2")
-oPrinter:Line(0325,0405,0325,0785) // Linha orizontal DEVOLIÇÃO
+oPrinter:Say(0320,0290,"DEVOLUÇÃO(NÃO CONFORMIDADE)",oFont11,,,) 
+oPrinter:Say(0320,0445,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0325,0285,0345,0575}, oBrushCian, "-2")
+oPrinter:Line(0325,0285,0325,0575) // Linha orizontal DEVOLIÇÃO
 
-oPrinter:Say(0340,0410,"TOTAL",oFont14,,,) 
-oPrinter:Say(0340,0630,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0345,0405,0365,0785}, oBrush1, "-2")
-oPrinter:Line(0345,0405,0345,0785) // Linha orizontal TOTAL
+oPrinter:Say(0340,0290,"TOTAL",oFont11,,,) 
+oPrinter:Say(0340,0445,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0345,0285,0365,0575}, oBrush1, "-2")
+oPrinter:Line(0345,0285,0345,0575) // Linha orizontal TOTAL
 
-oPrinter:Say(0360,0580,"BALANÇO",oFont14,,,) 
-oPrinter:Line(0365,0405,0365,0785) // Linha orizontal BALANÇO
+oPrinter:Say(0360,0410,"BALANÇO",oFont11,,,) 
+oPrinter:Line(0365,0285,0365,0575) // Linha orizontal BALANÇO
 
-oPrinter:Say(0380,0410,"SALDO FINAL",oFont14,,,) 
-oPrinter:Say(0380,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0385,0405,0385,0785) // Linha orizontal SALDO FINAL
+oPrinter:Say(0380,0290,"SALDO FINAL",oFont11,,,) 
+oPrinter:Say(0380,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0385,0285,0385,0575) // Linha orizontal SALDO FINAL
 
-oPrinter:Say(0400,0410,"INVENTÁRIO",oFont14,,,) 
-oPrinter:Say(0400,0630,"0,00",oFont14,,,) 
-oPrinter:Fillrect( {0405,0405,0425,0785}, oBrushCian, "-2")
-oPrinter:Line(0405,0405,0405,0785) // Linha orizontal INVENTÁRIO
+oPrinter:Say(0400,0290,"INVENTÁRIO",oFont11,,,) 
+oPrinter:Say(0400,0445,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0405,0285,0425,0575}, oBrushCian, "-2")
+oPrinter:Line(0405,0285,0405,0575) // Linha orizontal INVENTÁRIO
 
-oPrinter:Say(0420,0410,"DIFERENÇA DE SALDOS",oFont14,,,) 
-oPrinter:Say(0420,0630,"0,00",oFont14,,,) 
-oPrinter:Line(0425,0405,0425,0785) // Linha orizontal INVENTÁRIO
+oPrinter:Say(0420,0290,"DIFERENÇA DE SALDOS",oFont11,,,) 
+oPrinter:Say(0420,0445,"0,00",oFont11,,,) 
+oPrinter:Line(0425,0340,0425,0575) // Linha orizontal INVENTÁRIO
 
+oPrinter:Box(0430,0005,775,0280)  // QUADRO COLAGEM ******************************************
+oPrinter:Fillrect( {0430,0005,0450,0280}, oBrushBlue, "-2")
+oPrinter:Line(0450,0005,0450,0280) // Linha orizontal plaina e balanço de madeira
+oPrinter:Line(0430,0155,0450,0155) // Linha Vertical plaina e balanço de madeira
+oPrinter:Say(0445,0050,"COLAGEM",oFont11,,CLR_WHITE,) 
+oPrinter:Say(0445,0160,"BALANÇO DE RIPAS",oFont11,,CLR_WHITE,) 
+
+oPrinter:Fillrect( {0450,0005,0470,0280}, oBrush1, "-2")
+oPrinter:Say(0465,120,"ENTRADAS",oFont11,,,) 
+oPrinter:Line(0470,0006,0470,0280) // Linha orizontal Entradas
+
+oPrinter:Say(0485,0010,"SALDO INICIAL",oFont11,,,) 
+oPrinter:Say(0485,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0490,0005,0490,0280) // Linha orizontal SALDO INICIAL
+oPrinter:Line(0470,0155,0510,0155) // Linha Vertical entrada
+
+oPrinter:Say(0505,0010,"RECEBIMENTO",oFont11,,,) 
+oPrinter:Say(0505,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0510,0005,0530,0280}, oBrushCian, "-2")
+oPrinter:Line(0510,0005,0510,0280) // Linha orizontal RECEBIMENTO
+
+oPrinter:Say(0525,0010,"TOTAL",oFont11,,,) 
+oPrinter:Say(0525,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0520,0005,0540,0280}, oBrush1, "-2")
+oPrinter:Line(0530,0005,0530,0280) // Linha orizontal TOTAL
+
+oPrinter:Say(0535,120,"SAIDAS",oFont11,,,) 
+oPrinter:Line(0540,0005,0540,0280) // Linha orizontal SAIDAS
+oPrinter:Line(0540,0155,0775,0155) // Linha Vertical entrada
+
+oPrinter:Say(0555,0010,"PRODUÇÃO",oFont11,,,) 
+oPrinter:Say(0555,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0570,0005,0570,0280) // Linha orizontal PRODUÇÃO
+
+oPrinter:Say(0575,0010,"PERDAS",oFont11,,,) 
+oPrinter:Say(0575,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0590,0005,0590,0280) // Linha orizontal PERDAS
+
+oPrinter:Say(0605,0010,"DEVOLIÇÃO (NÃO CONFORMIDADE)",oFont11,,,) 
+oPrinter:Say(0605,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0610,0005,0630,0280}, oBrushCian, "-2")
+oPrinter:Line(0610,0005,0610,0280) // Linha orizontal DEVOLIÇÃO
+
+oPrinter:Say(0625,0010,"TOTAL",oFont11,,,) 
+oPrinter:Say(0625,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0630,0005,0650,0280}, oBrush1, "-2")
+oPrinter:Line(0630,0005,0630,0280) // Linha orizontal TOTAL
+
+oPrinter:Say(0645,120,"BALANÇO",oFont11,,,) 
+oPrinter:Line(0650,0005,0650,0280) // Linha orizontal BALANÇO
+
+oPrinter:Say(0665,0010,"SALDO FINAL",oFont11,,,) 
+oPrinter:Say(0665,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0670,0005,0670,0280) // Linha orizontal SALDO FINAL
+
+oPrinter:Say(0685,0010,"INVENTÁRIO",oFont11,,,) 
+oPrinter:Say(0685,0165,"0,00",oFont11,,,) 
+oPrinter:Fillrect( {0690,0005,0710,0280}, oBrushCian, "-2")
+oPrinter:Line(0690,0005,0690,0280) // Linha orizontal INVENTÁRIO
+
+oPrinter:Say(0705,0010,"DIFERENÇA DE SALDOS",oFont11,,,) 
+oPrinter:Say(0705,0165,"0,00",oFont11,,,) 
+oPrinter:Line(0710,0005,0710,0280) // Linha orizontal INVENTÁRIO
 
 // oPrinter:Box(0170,0265,0194,0360)  // ATENDIMENTO
 // oPrinter:Fillrect( {0171,0266,0182,0359}, oBrush1, "-2")
