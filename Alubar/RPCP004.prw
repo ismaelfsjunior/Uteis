@@ -71,21 +71,27 @@ EndIf
 oPrinter:SetLandscape() // SetPortrait()
 oPrinter:SetResolution(72)
 oPrinter:SetPaperSize(DMPAPER_A4)
-oPrinter:SetMargin(40,40,40,40) // nEsquerda, nSuperior, nDireita, nInferior
+//oPrinter:SetMargin(5,5,5,5) // nEsquerda, nSuperior, nDireita, nInferior
 oPrinter:StartPage()
 
-oPrinter:Box(0030,0005,0095,0810)  // QUADRO CABEÇALHO (L1, C1, L2, C2)
+oPrinter:Box(15,2,95,840)  // QUADRO CABEÇALHO (L1, C1, L2, C2)
 cFileLogo	:= cStartPath + 'LGRL.BMP' 
-oPrinter:SayBitmap( 35, 9, cFileLogo, 60, 55)
-oPrinter:Say(0055,0215,"STATUS DE PROGRAMAÇÃO | ALUBAR MONTENEGRO | AMN",oFont20n)
-oPrinter:Say(0080,0260,"FABRICA DE CARRETEL | "+DTOC(MV_PAR01) + " - "+DTOC(MV_PAR02),oFont20n)
+oPrinter:SayBitmap( 25, 8, cFileLogo, 70, 65)
+oPrinter:Say(55,215,"STATUS DE PROGRAMAÇÃO | ALUBAR MONTENEGRO | AMN",oFont20n)
+oPrinter:Say(80,260,"FABRICA DE CARRETEL | "+DTOC(MV_PAR01) + " - "+DTOC(MV_PAR02),oFont20n)
 
-oPrinter:Box(0105,0005,0265,0810)  // QUADRO TIPO DE PRODUTO (L1, C1, L2, C2)
-oPrinter:Line(0185,0005,0185,0810) // Linha orizontal tipo de produto
-oPrinter:Line(0105,0450,0265,0450) // Linha Vertical tipo de produto
+oPrinter:Box(105,2,265,840)  // QUADRO TIPO DE PRODUTO (L1, C1, L2, C2)
+oPrinter:Line(185,2,185,840) // Linha orizontal tipo de produto
+oPrinter:Line(105,420,265,420) // Linha Vertical tipo de produto
 
-oPrinter:Line(0211,0005,0211,0810) // Linha orizontal tipo de produto
-oPrinter:Line(0237,0005,0237,0810) // Linha orizontal tipo de produto
+oPrinter:Line(0140,0420,0140,840) // Linha orizontal Programado e Diferença
+oPrinter:Line(0140,495,0265,495) // Linha Vertical mes
+oPrinter:Line(0105,570,0265,570) // Linha Vertical periodo
+oPrinter:Line(0105,660,0265,660) // Linha Vertical realizado --
+oPrinter:Line(0140,0735,0265,0735) // Linha Vertical (unid)
+
+oPrinter:Line(0211,2,0211,840) // Linha orizontal carretel
+oPrinter:Line(0237,2,0237,840) // Linha orizontal conjunto de fechamento
 /*
 oPrinter:Box(0060,0005,0425,0280)  // QUADRO PLAINA (L1, C1, L2, C2)
 oPrinter:Fillrect( {0060,0005,0085,0280}, oBrushBlue, "-2")
@@ -264,7 +270,7 @@ oPrinter:Line(0550,0155,0775,0155) // Linha Vertical entrada
 
 oPrinter:Say(0565,0010,"PRODUÇÃO",oFont11,,,) 
 oPrinter:Say(0565,0165,"0,00",oFont11,,,) 
-oPrinter:Line(0570,0005,0570,0280) // Linha orizontal PRODUÇÃO
+oPrinter:Line(570,0005,570,0280) // Linha orizontal PRODUÇÃO
 
 oPrinter:Say(0585,0010,"PERDAS",oFont11,,,) 
 oPrinter:Say(0585,0165,"0,00",oFont11,,,) 
@@ -324,12 +330,12 @@ oPrinter:Line(0530,0285,0530,0575) // Linha orizontal RECEBIMENTO
 
 oPrinter:Say(0545,0290,"TOTAL",oFont11,,,) 
 oPrinter:Say(0545,0445,"0,00",oFont11,,,) 
-oPrinter:Fillrect( {0550,0285,0570,0575}, oBrush1, "-2")
+oPrinter:Fillrect( {0550,0285,570,0575}, oBrush1, "-2")
 oPrinter:Line(0550,0285,0550,0575) // Linha orizontal TOTAL
 
 oPrinter:Say(0565,0410,"SAIDAS",oFont11,,,) 
-oPrinter:Line(0570,0285,0570,0575) // Linha orizontal SAIDAS
-oPrinter:Line(0570,0430,0775,0430) // Linha Vertical entrada
+oPrinter:Line(570,0285,570,0575) // Linha orizontal SAIDAS
+oPrinter:Line(570,0430,0775,0430) // Linha Vertical entrada
 
 oPrinter:Say(0585,0290,"FLANGE PREGADA",oFont11,,,) 
 oPrinter:Say(0585,0445,"0,00",oFont11,,,) 
