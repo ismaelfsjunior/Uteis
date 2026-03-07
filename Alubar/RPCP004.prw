@@ -37,7 +37,7 @@ Private dData := DATE()
 Private oPrinter := FWMSPrinter():New(cFile ,IMP_PDF, .F., cCaminho, .T. , lTReport, /*@oPrintSetup*/, /*cPrinter*/, lServer, /*descontinuado*/, /*lRaw*/, lViewPDF, /*nQtdCopy*/ )  
 Private oBrushBlue := TBrush():New(,CLR_HBLUE)
 Private oBrushCian := TBrush():New(,CLR_HCYAN)
-Private oBrush1     := TBrush():New( , CLR_HGRAY),;
+Private oBrushGray := TBrush():New( , CLR_LIGHTGRAY ),;
 oFont06		:= TFont():New('Courier New',06,06,,.F.,,,,.T.,.F.),;
 oFont07		:= TFont():New('Courier New',07,07,,.F.,,,,.T.,.F.),;
 oFont08		:= TFont():New('Courier New',08,08,,.F.,,,,.T.,.F.),;
@@ -65,9 +65,11 @@ FErase( cCaminho+cFile+'.pdf' )
 _cSql		:= ''
 aAdd(aPergs, {1, "Data De",  dDataDe,  "", ".T.", "", ".T.", 80,  .T.})
 aAdd(aPergs, {1, "Data Até", dDataAt,  "", ".T.", "", ".T.", 80,  .T.})
-If !ParamBox(aPergs, "Informe os parâmetros")
-    return nil    
-EndIf 
+// If !ParamBox(aPergs, "Informe os parâmetros")
+//     return nil    
+// EndIf 
+MV_PAR01 := dDataDe
+MV_PAR02 := dDataAt
 oPrinter:SetLandscape() // SetPortrait()
 oPrinter:SetResolution(72)
 oPrinter:SetPaperSize(DMPAPER_A4)
@@ -80,18 +82,88 @@ oPrinter:SayBitmap( 25, 8, cFileLogo, 70, 65)
 oPrinter:Say(55,215,"STATUS DE PROGRAMAÇÃO | ALUBAR MONTENEGRO | AMN",oFont20n)
 oPrinter:Say(80,260,"FABRICA DE CARRETEL | "+DTOC(MV_PAR01) + " - "+DTOC(MV_PAR02),oFont20n)
 
-oPrinter:Box(105,2,265,840)  // QUADRO TIPO DE PRODUTO (L1, C1, L2, C2)
-oPrinter:Line(185,2,185,840) // Linha orizontal tipo de produto
-oPrinter:Line(105,420,265,420) // Linha Vertical tipo de produto
+oPrinter:Box(105,2,230,840)  // QUADRO TIPO DE PRODUTO (L1, C1, L2, C2)
+oPrinter:Fillrect( {105,2,155,420}, oBrushBlue, "-2")
+oPrinter:Fillrect( {105,420,155,840}, oBrushGray, "-2")
+oPrinter:Fillrect( {205,2,230,840}, oBrushGray, "-2")
+oPrinter:Say(136,150,"TIPO DE PRODUTO",oFont16n,,CLR_WHITE)
+oPrinter:Say(125,450,"PROGRAMADO",oFont16n)
+oPrinter:Say(125,730,"DIFERENÇA",oFont16n)
+oPrinter:Say(150,445,"MÊS",oFont16n)
+oPrinter:Say(150,513,"PERIODO",oFont16n) 
+oPrinter:Say(135,592,"REALIZADO",oFont16n)
+oPrinter:Say(150,700,"(UNID)",oFont16n)
+oPrinter:Say(150,790,"(%)",oFont16n)
 
-oPrinter:Line(0140,0420,0140,840) // Linha orizontal Programado e Diferença
-oPrinter:Line(0140,495,0265,495) // Linha Vertical mes
-oPrinter:Line(0105,570,0265,570) // Linha Vertical periodo
-oPrinter:Line(0105,660,0265,660) // Linha Vertical realizado --
-oPrinter:Line(0140,0735,0265,0735) // Linha Vertical (unid)
+oPrinter:Line(105,420,230,420) // Linha Vertical tipo de produto
+oPrinter:Line(130,420,130,580) // Linha orizontal Programado
+oPrinter:Line(130,680,130,840) // Linha orizontal Diferença 
+oPrinter:Line(155,2,155,840) // Linha orizontal tipo de produto
 
-oPrinter:Line(0211,2,0211,840) // Linha orizontal carretel
-oPrinter:Line(0237,2,0237,840) // Linha orizontal conjunto de fechamento
+oPrinter:Line(130,500,230,500) // Linha Vertical mes
+oPrinter:Line(105,580,230,580) // Linha Vertical periodo
+oPrinter:Line(105,680,230,680) // Linha Vertical realizado --
+oPrinter:Line(130,760,230,760) // Linha Vertical (unid)
+nValor := 1574
+nVlneg := -1919
+nPerce := -50
+oPrinter:Say(175,190,"CARRETEL",oFont16n)
+oPrinter:Say(175,425,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) //mes
+oPrinter:Say(175,505,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) // periodo
+oPrinter:Say(175,590,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) // realizado
+oPrinter:Say(175,685,Alltrim(transform(nVlneg,"@E 999,999,999")),oFont16n,iif(nVlneg < 0 ,CLR_HRED,)) // unid
+oPrinter:Say(175,765,Alltrim(transform(nPerce,"@E 999"))+'%',oFont16n,,iif(nPerce < 0 ,CLR_HRED,)) // %
+oPrinter:Line(180,2,180,840) // Linha orizontal carretel
+
+oPrinter:Say(200,130,"CONJUNTO DE FECHAMENTO",oFont16n)
+oPrinter:Say(200,425,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) //mes
+oPrinter:Say(200,505,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) // periodo
+oPrinter:Say(200,590,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) // realizado
+oPrinter:Say(200,685,Alltrim(transform(nVlneg,"@E 999,999,999")),oFont16n,iif(nVlneg < 0 ,CLR_HRED,)) // unid
+oPrinter:Say(200,765,Alltrim(transform(nPerce,"@E 999"))+'%',oFont16n,,iif(nPerce < 0 ,CLR_HRED,)) // %
+oPrinter:Line(205,2,205,840) // Linha orizontal conjunto de fechamento
+oPrinter:Say(225,185,"TOTAL (UND)",oFont16n)
+oPrinter:Say(225,425,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) //mes
+oPrinter:Say(225,505,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) // periodo
+oPrinter:Say(225,590,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) // realizado
+oPrinter:Say(225,685,Alltrim(transform(nVlneg,"@E 999,999,999")),oFont16n,iif(nVlneg < 0 ,CLR_HRED,)) // unid
+oPrinter:Say(225,765,Alltrim(transform(nPerce,"@E 999"))+'%',oFont16n,,CLR_BLUE) // %
+
+// ************ DETALHAMENTO POR PRODUTO ********************
+oPrinter:Box(235,2,590,840)  // DETALHAMENTO POR PRODUTO (L1, C1, L2, C2)
+// oPrinter:Fillrect( {105,2,155,420}, oBrushBlue, "-2")
+// oPrinter:Fillrect( {105,420,155,840}, oBrushGray, "-2")
+// oPrinter:Fillrect( {205,2,575,840}, oBrushGray, "-2")
+
+oPrinter:Say(136,150,"TIPO DE PRODUTO",oFont16n)
+oPrinter:Say(136,150,"DETALHAMENTO POR PRODUTO",oFont16n)
+oPrinter:Say(230,450,"PROGRAMADO",oFont16n)
+// oPrinter:Say(125,730,"DIFERENÇA",oFont16n)
+oPrinter:Say(150,445,"MÊS",oFont16n)
+oPrinter:Say(150,513,"PERIODO",oFont16n) 
+oPrinter:Say(135,592,"REALIZADO",oFont16n)
+oPrinter:Say(150,700,"(UNID)",oFont16n)
+oPrinter:Say(150,790,"(%)",oFont16n)
+
+oPrinter:Line(235,420,590,420) // Linha Vertical detalhamento de produto
+nLin := 260
+oPrinter:Line(nLin,2,nLin,580) // Linha orizontal detalhamento de produto e Programado
+nLin := nLin + 25
+oPrinter:Line(nLin,100,nLin,840) // Linha orizontal tipo de produto
+nLin := nLin + 25
+oPrinter:Say(nLin-5,265,"CARRETEL",oFont16n)
+oPrinter:Say(nLin-5,425,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) //mes
+oPrinter:Say(nLin-5,505,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) // periodo
+oPrinter:Say(nLin-5,590,Alltrim(transform(nValor,"@E 999,999,999")),oFont16n) // realizado
+oPrinter:Say(nLin-5,685,Alltrim(transform(nVlneg,"@E 999,999,999")),oFont16n,iif(nVlneg < 0 ,CLR_HRED,)) // unid
+oPrinter:Say(nLin-5,765,Alltrim(transform(nPerce,"@E 999"))+'%',oFont16n,,iif(nPerce < 0 ,CLR_HRED,)) // %
+oPrinter:Line(nLin,100,nLin,840) // Linha orizontal Carretel
+
+oPrinter:Line(260,100,590,100) // Linha Vertical cliente
+oPrinter:Line(260,500,590,500) // Linha Vertical mes
+oPrinter:Line(235,580,590,580) // Linha Vertical periodo
+oPrinter:Line(235,680,590,680) // Linha Vertical realizado --
+oPrinter:Line(235,760,590,760) // Linha Vertical (unid)
 /*
 oPrinter:Box(0060,0005,0425,0280)  // QUADRO PLAINA (L1, C1, L2, C2)
 oPrinter:Fillrect( {0060,0005,0085,0280}, oBrushBlue, "-2")
@@ -100,17 +172,17 @@ oPrinter:Line(0060,0155,0085,0155) // Linha Vertical plaina e balanço de madeira
 oPrinter:Say(0075,0050,"PLAINA",oFont11,,CLR_WHITE,) 
 oPrinter:Say(0075,0160,"BALANÇO DE MADEIRA",oFont11,,CLR_WHITE,) 
 
-oPrinter:Fillrect( {085,0005,0105,0280}, oBrush1, "-2")
-oPrinter:Line(0105,0006,0105,0280) // Linha orizontal Entradas
+oPrinter:Fillrect( {085,0005,105,0280}, oBrush1, "-2")
+oPrinter:Line(105,0006,105,0280) // Linha orizontal Entradas
 oPrinter:Say(0098,120,"ENTRADAS",oFont11,,,) 
 
 oPrinter:Say(0120,0010,"SALDO INICIAL",oFont11,,,) 
 oPrinter:Say(0120,0165,"0,00",oFont11,,,) 
 oPrinter:Line(0125,0005,0125,0280) // Linha orizontal SALDO INICIAL
-oPrinter:Line(0105,0155,0145,0155) // Linha Vertical entrada
+oPrinter:Line(105,0155,0145,0155) // Linha Vertical entrada
 
-oPrinter:Say(0140,0010,"RECEBIMENTO",oFont11,,,) 
-oPrinter:Say(0140,0165,"0,00",oFont11,,,) 
+oPrinter:Say(140,0010,"RECEBIMENTO",oFont11,,,) 
+oPrinter:Say(140,0165,"0,00",oFont11,,,) 
 oPrinter:Fillrect( {0145,0005,0165,0280}, oBrushCian, "-2")
 oPrinter:Line(0145,0005,0145,0280) // Linha orizontal RECEBIMENTO
 
@@ -133,13 +205,13 @@ oPrinter:Line(0225,0005,0225,0280) // Linha orizontal PERDAS
 
 oPrinter:Say(0240,0010,"DEVOLIÇÃO (NÃO CONFORMIDADE)",oFont11,,,) 
 oPrinter:Say(0240,0165,"0,00",oFont11,,,) 
-oPrinter:Fillrect( {0245,0005,0265,0280}, oBrushCian, "-2")
+oPrinter:Fillrect( {0245,0005,230,0280}, oBrushCian, "-2")
 oPrinter:Line(0245,0005,0245,0280) // Linha orizontal DEVOLIÇÃO
 
 oPrinter:Say(0260,0010,"TOTAL",oFont11,,,) 
 oPrinter:Say(0260,0165,"0,00",oFont11,,,) 
-oPrinter:Fillrect( {0265,0005,0285,0280}, oBrush1, "-2")
-oPrinter:Line(0265,0005,0265,0280) // Linha orizontal TOTAL
+oPrinter:Fillrect( {230,0005,0285,0280}, oBrush1, "-2")
+oPrinter:Line(230,0005,230,0280) // Linha orizontal TOTAL
 
 oPrinter:Say(0280,120,"BALANÇO",oFont11,,,) 
 oPrinter:Line(0285,0005,0285,0280) // Linha orizontal BALANÇO
@@ -165,17 +237,17 @@ oPrinter:Line(0060,0430,0085,0430) // Linha Vertical cortee balanço de madeira
 oPrinter:Say(0075,0320,"CORTE",oFont11,,CLR_WHITE,) 
 oPrinter:Say(0075,0465,"BALANÇO DE TABUAS",oFont11,,CLR_WHITE,) 
 
-oPrinter:Fillrect( {085,0285,0105,0575}, oBrush1, "-2")
-oPrinter:Line(0105,0285,0105,0575) // Linha orizontal Entradas
+oPrinter:Fillrect( {085,0285,105,0575}, oBrush1, "-2")
+oPrinter:Line(105,0285,105,0575) // Linha orizontal Entradas
 oPrinter:Say(0098,0410,"ENTRADAS",oFont11,,,) 
 
 oPrinter:Say(0120,0290,"SALDO INICIAL",oFont11,,,) 
 oPrinter:Say(0120,0445,"0,00",oFont11,,,) 
 oPrinter:Line(0125,0285,0125,0575) // Linha orizontal SALDO INICIAL
-oPrinter:Line(0105,0430,0145,0430) // Linha Vertical entrada
+oPrinter:Line(105,0430,0145,0430) // Linha Vertical entrada
 
-oPrinter:Say(0140,0290,"RECEBIMENTO DA PLAINA",oFont11,,,) 
-oPrinter:Say(0140,0445,"0,00",oFont11,,,) 
+oPrinter:Say(140,0290,"RECEBIMENTO DA PLAINA",oFont11,,,) 
+oPrinter:Say(140,0445,"0,00",oFont11,,,) 
 oPrinter:Fillrect( {0145,0285,0165,0575}, oBrushCian, "-2")
 oPrinter:Line(0145,0285,0145,0575) // Linha orizontal RECEBIMENTO
 
@@ -202,7 +274,7 @@ oPrinter:Line(0245,0285,0245,0575) // Linha orizontal - RIPAS DE FALNGES
 
 oPrinter:Say(0260,0290,"RIPAS DE REF. LATERAL",oFont11,,,) 
 oPrinter:Say(0260,0445,"0,00",oFont11,,,) 
-oPrinter:Line(0265,0285,0265,0575) // Linha orizontal - RIPAS DE FALNGES
+oPrinter:Line(230,0285,230,0575) // Linha orizontal - RIPAS DE FALNGES
 
 oPrinter:Say(0280,0290,"RIPAS DE REF. CENTRAL",oFont11,,,) 
 oPrinter:Say(0280,0445,"0,00",oFont11,,,) 
